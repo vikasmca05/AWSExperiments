@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  c360-services_neworder:
+    image: ${DOCKER_REGISTRY-}c360servicesneworder
+    build:
+      context: .
+      dockerfile: C360-Services_NewOrder/Dockerfile
