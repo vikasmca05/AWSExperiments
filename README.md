@@ -5,6 +5,9 @@ Problem Statement - To process New Order for provisioing request. Decouple the n
 
 Solution Approach - Create a docker contianer which produces New Order records to SQS standard queue. Microservice "New Proviosning Order" will read the records and update the entry in Dynamo DB table. Once data has been succesfullt entered then record will be deleted from SQS standard queue.
 
+![alt text](https://github.com/vikasmca05/AWSExperiments/blob/master/C360-Services_NewOrder/SampleOrderApplication.png)
+
+
 Technology Stack - 
  Messaging Platform - SQS
  Database - Dynamo DB Table
