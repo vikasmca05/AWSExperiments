@@ -15,6 +15,7 @@ namespace C360_Services_NewOrder.Models
 
         public AmazonSQSClient _client;
         public AppConfig _awsConfig;
+        public TransactionsRecord transactionRecord;
 
         public SQS_Consumer(AppConfig appConfig)
         {
@@ -38,6 +39,10 @@ namespace C360_Services_NewOrder.Models
 
 
                 _client = new AmazonSQSClient(awsCredentials, config);
+
+
+                //Create object for DB Operations
+                transactionRecord = new TransactionsRecord(awsCredentials);
 
             }
 
@@ -67,7 +72,7 @@ namespace C360_Services_NewOrder.Models
 
                 var _messageRequest = new SendMessageRequest();
                 _messageRequest.QueueUrl = GetQueueUrl();
-                _messageRequest.MessageBody = "Auto Generated Message";
+                _messageRequest.MessageBody = "Auto Generated Message - New Order";
                 sendMessageResponse = await _client.SendMessageAsync(_messageRequest);
 
             }
@@ -97,6 +102,21 @@ namespace C360_Services_NewOrder.Models
                 if (response.HttpStatusCode != HttpStatusCode.OK)
                 {
                     throw new AmazonSQSException($"Failed to GetMessagesAsync for queue {queueName}. Response: {response.HttpStatusCode}");
+                }
+
+                foreach(Message m in response.Messages)
+                {
+                    Order order = new Order();
+                    order.SerialNumber = "SN-12345";
+                    order.OrderStatus = "Created";
+                    order.OrderType = "New";
+
+                    //Update the record in DynamoDB table
+                    await transactionRecord.InsertRecord<Order>(order);
+
+                    //Delete the record in SQS
+                    await DeleteMessageAsync("NewOrder", m.ReceiptHandle);
+                   
                 }
 
                 return response.Messages;

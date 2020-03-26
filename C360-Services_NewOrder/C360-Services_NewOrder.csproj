@@ -16,6 +16,10 @@
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="AWSSDK.SQS" Version="3.3.102.80" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.105.16" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="TransactionsRecord.cs" />
+  </ItemGroup>
 </Project>
