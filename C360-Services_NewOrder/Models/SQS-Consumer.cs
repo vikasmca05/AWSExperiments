@@ -72,7 +72,8 @@ namespace C360_Services_NewOrder.Models
 
                 var _messageRequest = new SendMessageRequest();
                 _messageRequest.QueueUrl = GetQueueUrl();
-                _messageRequest.MessageBody = "Auto Generated Message - New Order";
+                Guid obj = Guid.NewGuid();
+                _messageRequest.MessageBody = obj.ToString();
                 sendMessageResponse = await _client.SendMessageAsync(_messageRequest);
 
             }
@@ -107,7 +108,7 @@ namespace C360_Services_NewOrder.Models
                 foreach(Message m in response.Messages)
                 {
                     Order order = new Order();
-                    order.SerialNumber = "SN-12345";
+                    order.SerialNumber = m.Body;
                     order.OrderStatus = "Created";
                     order.OrderType = "New";
 

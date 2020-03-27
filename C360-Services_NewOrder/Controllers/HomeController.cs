@@ -19,28 +19,32 @@ namespace C360_Services_NewOrder.Controllers
         public HomeController(IConfiguration configuration )
         {
             _iconfiguration = configuration;
-        }
-        public async Task<IActionResult> Index()
-        {
             _appConfig = new AppConfig();
             _appConfig.AwsAccessKey = _iconfiguration["AwsAccessKey"];
             _appConfig.AwsSecretKey = _iconfiguration["AwsSecretKey"];
-            //var AwsQueueURL = _iconfiguration["AwsQueueURL"];
 
-            //_appConfig.AwsAccessKey = AwsAccessKey;
-            //_appConfig.AwsSecretKey = AwsSecretKey;
-            
+
 
             _client = new SQS_Consumer(_appConfig);
+        }
+        public async Task<IActionResult> Index()
+        {
+            //_appConfig = new AppConfig();
+            //_appConfig.AwsAccessKey = _iconfiguration["AwsAccessKey"];
+            //_appConfig.AwsSecretKey = _iconfiguration["AwsSecretKey"];
 
-            //Send Sample message to Queue
-            await _client.SendMessagetoSQS();
+            
 
-            //Get Message from Queue
-            // Define the cancellation token.
-            CancellationTokenSource source = new CancellationTokenSource();
-            CancellationToken token = source.Token;
-            await _client.GetMessagesAsync("NewOrder",token);
+            //_client = new SQS_Consumer(_appConfig);
+
+            ////Send Sample message to Queue
+            //await _client.SendMessagetoSQS();
+
+            ////Get Message from Queue
+            //// Define the cancellation token.
+            //CancellationTokenSource source = new CancellationTokenSource();
+            //CancellationToken token = source.Token;
+            //await _client.GetMessagesAsync("NewOrder",token);
 
             return View();
         }
@@ -48,6 +52,23 @@ namespace C360_Services_NewOrder.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public async void SendRequest(object sender, EventArgs e)
+        {
+            //Send Sample message to Queue
+            await _client.SendMessagetoSQS();
+            return;
+        }
+
+        public async void GetRequest()
+        {
+            //Get Message from Queue
+            // Define the cancellation token.
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
+            await _client.GetMessagesAsync("NewOrder", token);
+            return;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

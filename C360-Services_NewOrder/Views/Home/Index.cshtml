@@ -3,6 +3,19 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Sample Order Processing Application</h1>
+    <p></p>
+</div>
+
+<div>
+    <input type="button" value="Send Sample Order Requests" onclick="location.href='@Url.Action("SendRequest", "Home")'" />
+    <!--input type="button" value="Send Sample Order Requests" onclick="SendRequest()"/-->
+
+</div>
+
+<p>
+</p>
+
+<div>
+    <input type="button" value="Start Processing of Order Requests" onclick="location.href='@Url.Action("GetRequest", "Home")'" />
 </div>
