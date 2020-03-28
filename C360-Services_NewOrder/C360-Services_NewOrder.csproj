@@ -6,6 +6,7 @@
     <RootNamespace>C360_Services_NewOrder</RootNamespace>
     <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
     <UserSecretsId>133177cd-96bc-4f78-b4b0-8ecc103d2673</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
 
@@ -17,6 +18,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="AWSSDK.SQS" Version="3.3.102.80" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.105.16" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
   </ItemGroup>
 
   <ItemGroup>
